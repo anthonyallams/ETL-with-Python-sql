@@ -1,6 +1,6 @@
 from api.lib.helper import extract_url_from_csv, convert_to_csv, find_uploaded
 from api.adapter.rss import load,valid_data
-from api.models import create_app
+from api import create_app
 
 if __name__ == '__main__':
     path = extract_url_from_csv('data/Example RSS Feeds.csv')

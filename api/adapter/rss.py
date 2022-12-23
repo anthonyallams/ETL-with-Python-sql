@@ -27,8 +27,7 @@ def valid_data(url):
 
 def transform_data(url):
   """
-  Transformation layer: Keys and values are extracted from each feed and transformed
-                        to the appropriate format for saving into the database and CSV
+  Transformation layer: Keys and values are extracted from each feed and transformed to the appropriate format for saving into the database and CSV
   """
   feeds = extract_data(url)
   
@@ -39,8 +38,17 @@ def transform_data(url):
 
     attributes = ['url','headline','body','source_name','categories','authors','datepub','description','image']
 
-    selected_entry_values = [get_key(entry, 'link'), get_key(entry,'title'), extract_content_text(get_longkey(entry, 'content', 'value')),get_sourcename(feeds, 'feed', 'title'), concatenate_keys(entry, 'tags','term'), concatenate_keys(entry, 'authors','name'),get_key(entry, 'published'), 
-    get_key(entry,'summary'), get_longkey(entry, 'media_thumbnail','url')]
+    selected_entry_values = [
+      get_key(entry, 'link'), 
+      get_key(entry,'title'), 
+      extract_content_text(get_longkey(entry, 'content', 'value')),
+      get_sourcename(feeds, 'feed', 'title'), 
+      concatenate_keys(entry, 'tags','term'), 
+      concatenate_keys(entry, 'authors','name'),
+      get_key(entry, 'published'), 
+      get_key(entry,'summary'), 
+      get_longkey(entry, 'media_thumbnail','url')
+    ]
 
     selected_entry = dict(zip(attributes, selected_entry_values))
     selected_entries.append(selected_entry)
@@ -50,7 +58,7 @@ def transform_data(url):
 
 def load(url):
   """
-  Save/Load Layer: Save the feeds to DB and convert each url feed to CSV format
+  Load Layer: Save the feeds to DB and convert each url feed to CSV format
   """
   articles = []
   selected_entries = transform_data(url)
